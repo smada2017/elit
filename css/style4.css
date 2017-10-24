@@ -166,7 +166,7 @@ html, body {
   background-color: #03263d;
 }
 .cd-primary-nav-trigger .cd-menu-text {
-  color: white;
+  color: black;
   text-transform: uppercase;
   font-weight: 700;
   /* hide the text on small devices */
@@ -371,7 +371,7 @@ html, body {
 .cd-intro {
   position: relative;
   height: 100%;
-  background: url("../img/red.jpg") no-repeat center center;
+  background: url("../img/reality.jpg") no-repeat center center;
   background-size: cover;
   z-index: 1;
   -webkit-font-smoothing: antialiased;
@@ -390,7 +390,7 @@ html, body {
   -ms-transform: translateX(-50%) translateY(-50%);
   -o-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
-  color: white;
+  color: black;
   font-size: 120px;
   /*font-size: 1.25rem;*/
   font-weight: 300;

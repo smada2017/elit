@@ -371,7 +371,7 @@ html, body {
 .cd-intro {
   position: relative;
   height: 100%;
-  background: url("../img/red.jpg") no-repeat center center;
+  background: url("../img/E-lit.jpg") no-repeat center center;
   background-size: cover;
   z-index: 1;
   -webkit-font-smoothing: antialiased;
@@ -390,10 +390,10 @@ html, body {
   -ms-transform: translateX(-50%) translateY(-50%);
   -o-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
-  color: white;
+  color: black;
   font-size: 120px;
   /*font-size: 1.25rem;*/
-  font-weight: 300;
+  font-weight: 500;
   text-align: center;
 }
 /*@media only screen and (min-width: 768px) {

@@ -371,7 +371,7 @@ html, body {
 .cd-intro {
   position: relative;
   height: 100%;
-  background: url("../img/red.jpg") no-repeat center center;
+  background: url("../img/cd-background-img.jpg") no-repeat center center;
   background-size: cover;
   z-index: 1;
   -webkit-font-smoothing: antialiased;
@@ -391,17 +391,17 @@ html, body {
   -o-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   color: white;
-  font-size: 120px;
-  /*font-size: 1.25rem;*/
+  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 300;
   text-align: center;
 }
-/*@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px) {
   .cd-intro h1 {
     font-size: 50px;
     font-size: 1.875rem;
   }
-}*/
+}
 @media only screen and (min-width: 1170px) {
   .cd-intro {
     height: 700px;
