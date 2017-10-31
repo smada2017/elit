@@ -1,20 +1,15 @@
 // colors
 
-$color-1: #021725; // blue
-$color-2: #e36767; // red
-$color-3: #fff; // white
+$color-1: #767070; // Dove Gray
+$color-2: #ccd0c1; // Kangaroo
+$color-3: #f3b96c; // Rajah
+$color-4: #f46c6a; // Froly
+$color-5: #ffffff; // White
 
 // fonts 
 
-$primary-font: 'Source Sans Pro', sans-serif;
+$primary-font: 'Fira Sans', sans-serif;
 
-//header height
+// animation
 
-$header-height-S: 50px;
-$header-height-M: 80px;
-
-// z-index 
-
-$content-zindex: 1;
-$nav-zindex: 2;
-$header-zindex: 3;
+$animation-duration: .6s;

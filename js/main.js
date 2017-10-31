@@ -1,47 +1,68 @@
 jQuery(document).ready(function($){
-	//if you change this breakpoint in the style.css file (or _layout.scss if you use SASS), don't forget to update this value as well
-	var MQL = 1170;
+	var sliderContainers = $('.cd-slider-wrapper');
 
-	//primary navigation slide-in effect
-	if($(window).width() > MQL) {
-		var headerHeight = $('.cd-header').height();
-		$(window).on('scroll',
-		{
-	        previousTop: 0
-	    }, 
-	    function () {
-		    var currentTop = $(window).scrollTop();
-		    //check if user is scrolling up
-		    if (currentTop < this.previousTop ) {
-		    	//if scrolling up...
-		    	if (currentTop > 0 && $('.cd-header').hasClass('is-fixed')) {
-		    		$('.cd-header').addClass('is-visible');
-		    	} else {
-		    		$('.cd-header').removeClass('is-visible is-fixed');
-		    	}
-		    } else {
-		    	//if scrolling down...
-		    	$('.cd-header').removeClass('is-visible');
-		    	if( currentTop > headerHeight && !$('.cd-header').hasClass('is-fixed')) $('.cd-header').addClass('is-fixed');
-		    }
-		    this.previousTop = currentTop;
+	if( sliderContainers.length > 0 ) initBlockSlider(sliderContainers);
+
+	function initBlockSlider(sliderContainers) {
+		sliderContainers.each(function(){
+			var sliderContainer = $(this),
+				slides = sliderContainer.children('.cd-slider').children('li'),
+				sliderPagination = createSliderPagination(sliderContainer);
+
+			sliderPagination.on('click', function(event){
+				event.preventDefault();
+				var selected = $(this),
+					index = selected.index();
+				updateSlider(index, sliderPagination, slides);
+			});
+
+			sliderContainer.on('swipeleft', function(){
+				var bool = enableSwipe(sliderContainer),
+					visibleSlide = sliderContainer.find('.is-visible').last(),
+					visibleSlideIndex = visibleSlide.index();
+				if(!visibleSlide.is(':last-child') && bool) {updateSlider(visibleSlideIndex + 1, sliderPagination, slides);}
+			});
+
+			sliderContainer.on('swiperight', function(){
+				var bool = enableSwipe(sliderContainer),
+					visibleSlide = sliderContainer.find('.is-visible').last(),
+					visibleSlideIndex = visibleSlide.index();
+				if(!visibleSlide.is(':first-child') && bool) {updateSlider(visibleSlideIndex - 1, sliderPagination, slides);}
+			});
 		});
 	}
 
-	//open/close primary navigation
-	$('.cd-primary-nav-trigger').on('click', function(){
-		$('.cd-menu-icon').toggleClass('is-clicked'); 
-		$('.cd-header').toggleClass('menu-is-open');
-		
-		//in firefox transitions break when parent overflow is changed, so we need to wait for the end of the trasition to give the body an overflow hidden
-		if( $('.cd-primary-nav').hasClass('is-visible') ) {
-			$('.cd-primary-nav').removeClass('is-visible').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
-				$('body').removeClass('overflow-hidden');
-			});
+	function createSliderPagination(container){
+		var wrapper = $('<ol class="cd-slider-navigation"></ol>');
+		container.children('.cd-slider').find('li').each(function(index){
+			var dotWrapper = (index == 0) ? $('<li class="selected"></li>') : $('<li></li>'),
+				dot = $('<a href="#0"></a>').appendTo(dotWrapper);
+			dotWrapper.appendTo(wrapper);
+			if (index < 1) {
+    	var dotText = "Intro";
+		} else if (index == 6){
+			var dotText = 'Cite';
 		} else {
-			$('.cd-primary-nav').addClass('is-visible').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',function(){
-				$('body').addClass('overflow-hidden');
-			});	
+			var dotText = '0'+ (index);
 		}
-	});
+
+			dot.text(dotText);
+		});
+		wrapper.appendTo(container);
+		return wrapper.children('li');
+	}
+
+	function updateSlider(n, navigation, slides) {
+		navigation.removeClass('selected').eq(n).addClass('selected');
+		slides.eq(n).addClass('is-visible').removeClass('covered').prevAll('li').addClass('is-visible covered').end().nextAll('li').removeClass('is-visible covered');
+
+		//fixes a bug on Firefox with ul.cd-slider-navigation z-index
+		navigation.parent('ul').addClass('slider-animating').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
+			$(this).removeClass('slider-animating');
+		});
+	}
+
+	function enableSwipe(container) {
+		return ( container.parents('.touch').length > 0 );
+	}
 });
